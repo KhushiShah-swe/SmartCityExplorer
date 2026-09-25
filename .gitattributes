@@ -1,0 +1,7 @@
+* text=auto
+*.sh text eol=lf
+mvnw text eol=lf
+*.cmd text eol=crlf
+*.png binary
+*.svg linguist-generated=true
+frontend/package-lock.json linguist-generated=true

@@ -1,0 +1,134 @@
+[
+  {
+    "id": 1,
+    "name": "Chicago Riverwalk",
+    "description": "Follow the river through the heart of the city, with architecture and waterfront views along the way.",
+    "category": "Outdoors",
+    "mood": "Explore Chicago",
+    "budgetLevel": 0,
+    "durationMinutes": 90,
+    "neighborhood": "Loop",
+    "hiddenGem": false
+  },
+  {
+    "id": 2,
+    "name": "Garfield Park Conservatory",
+    "description": "Slow down among lush indoor landscapes and make room for a little green in your day.",
+    "category": "Culture",
+    "mood": "Slow & Relaxed",
+    "budgetLevel": 1,
+    "durationMinutes": 90,
+    "neighborhood": "Garfield Park",
+    "hiddenGem": false
+  },
+  {
+    "id": 3,
+    "name": "Art Institute Afternoon",
+    "description": "Make an afternoon of art, conversation, and finding a new favorite gallery.",
+    "category": "Culture",
+    "mood": "Date Night",
+    "budgetLevel": 3,
+    "durationMinutes": 180,
+    "neighborhood": "Loop",
+    "hiddenGem": false
+  },
+  {
+    "id": 4,
+    "name": "Lincoln Park Lakefront",
+    "description": "Take the scenic route: lakeside paths, open sky, and a picnic break with a view.",
+    "category": "Outdoors",
+    "mood": "Slow & Relaxed",
+    "budgetLevel": 0,
+    "durationMinutes": 120,
+    "neighborhood": "Lincoln Park",
+    "hiddenGem": false
+  },
+  {
+    "id": 5,
+    "name": "Neighborhood Study Caf\u00e9",
+    "description": "An illustrative caf\u00e9 experience: bring a notebook, settle in, and make progress over coffee.",
+    "category": "Caf\u00e9s",
+    "mood": "Study & Work",
+    "budgetLevel": 1,
+    "durationMinutes": 120,
+    "neighborhood": "Lincoln Park",
+    "hiddenGem": true
+  },
+  {
+    "id": 6,
+    "name": "Pilsen Mural Walk",
+    "description": "Explore colorful streets and public art at your own pace with a friend or your camera.",
+    "category": "Culture",
+    "mood": "Explore Chicago",
+    "budgetLevel": 0,
+    "durationMinutes": 90,
+    "neighborhood": "Pilsen",
+    "hiddenGem": true
+  },
+  {
+    "id": 7,
+    "name": "Rooftop Golden Hour",
+    "description": "An illustrative rooftop outing: city views, a shared table, and a reason to put your phone away.",
+    "category": "Dining",
+    "mood": "Date Night",
+    "budgetLevel": 3,
+    "durationMinutes": 120,
+    "neighborhood": "Loop",
+    "hiddenGem": false
+  },
+  {
+    "id": 8,
+    "name": "Logan Square Coffee Break",
+    "description": "An illustrative neighborhood coffee stop for a relaxed catch-up or an hour with a book.",
+    "category": "Caf\u00e9s",
+    "mood": "Slow & Relaxed",
+    "budgetLevel": 1,
+    "durationMinutes": 60,
+    "neighborhood": "Logan Square",
+    "hiddenGem": true
+  },
+  {
+    "id": 9,
+    "name": "West Loop Dinner Plans",
+    "description": "An illustrative dinner experience for trying something new together in a lively neighborhood.",
+    "category": "Dining",
+    "mood": "Group Activities",
+    "budgetLevel": 3,
+    "durationMinutes": 120,
+    "neighborhood": "West Loop",
+    "hiddenGem": false
+  },
+  {
+    "id": 10,
+    "name": "Neighborhood Game Night",
+    "description": "An illustrative game-night experience: bring your friends and a little friendly competition.",
+    "category": "Activities",
+    "mood": "Group Activities",
+    "budgetLevel": 2,
+    "durationMinutes": 120,
+    "neighborhood": "Lakeview",
+    "hiddenGem": true
+  },
+  {
+    "id": 11,
+    "name": "Evening Jazz Session",
+    "description": "An illustrative live-music outing for a late evening of rhythm and conversation.",
+    "category": "Nightlife",
+    "mood": "Party & Nightlife",
+    "budgetLevel": 2,
+    "durationMinutes": 120,
+    "neighborhood": "Uptown",
+    "hiddenGem": false
+  },
+  {
+    "id": 12,
+    "name": "Harold Washington Library",
+    "description": "A downtown library visit for focused reading, a quiet reset, or your next creative idea.",
+    "category": "Culture",
+    "mood": "Study & Work",
+    "budgetLevel": 0,
+    "durationMinutes": 60,
+    "neighborhood": "Loop",
+    "hiddenGem": false
+  }
+]
