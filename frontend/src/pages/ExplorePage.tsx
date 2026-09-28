@@ -89,7 +89,7 @@ export default function ExplorePage() {
               {[...new Set(items.map((x) => x.neighborhood))].sort().map((x) => <option key={x}>{x}</option>)}
             </select>
           </label>
-          <p className="filter-note">Live place information is provided by Google. Event tickets open on Eventbrite.</p>
+          <p className="filter-note">Place discovery uses Foursquare when configured, with OpenStreetMap as a no-key fallback. Event tickets open on Eventbrite.</p>
         </aside>
 
         <section className="results">
@@ -101,7 +101,7 @@ export default function ExplorePage() {
           </div>
           {placesError && <div className="notice">Live places are temporarily unavailable. Curated recommendations are still below.</div>}
           {!placesLoading && !placesError && places.length === 0 && (
-            <div className="notice">Add GOOGLE_PLACES_API_KEY to the backend Railway service to turn on live Google recommendations.</div>
+            <div className="notice">Live place results are unavailable right now. Curated Chicago recommendations are still available below.</div>
           )}
           <div className="experience-grid two-col live-grid">
             {places.map((item) => <PlaceCard key={item.id} item={item} />)}
