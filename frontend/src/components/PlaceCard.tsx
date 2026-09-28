@@ -8,14 +8,14 @@ export default function PlaceCard({ item }: { item: Place }) {
         <span className="art-ring" />
         <span className="art-symbol" aria-hidden="true">⌖</span>
         <span className="category-label">{item.category}</span>
-        <span className="gem">LIVE · GOOGLE</span>
+        <span className="gem">LIVE · CHICAGO</span>
       </div>
       <div className="card-content">
         <p className="location">{item.address || 'Chicago, IL'}</p>
         <h3>{item.name}</h3>
         <div className="place-meta">
           {item.rating != null && <strong>★ {item.rating.toFixed(1)}</strong>}
-          {item.reviewCount != null && <span>{item.reviewCount.toLocaleString()} reviews</span>}
+          {item.reviewCount != null && <span>{item.reviewCount.toLocaleString()} ratings</span>}
           <span>{budgetLabel(item.budgetLevel)}</span>
           {item.openNow && <span className="open-now">Open now</span>}
         </div>
