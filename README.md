@@ -108,3 +108,20 @@ Favorites currently live in the browser. The catalog is small and unpaginated, a
 ## Author
 
 Built by [Khushi Shah](https://github.com/KhushiShah-swe).
+
+
+## Live Chicago discovery
+
+Smart City Explorer can enrich its curated catalog with live Chicago place data from Google Places API (New).
+
+- Mood-aware café, attraction, park, nightlife, study and date-spot discovery
+- Google ratings and review counts
+- Direct Google Maps, directions and review links
+- Price-level filtering
+- Event discovery handoff to Eventbrite for current Chicago listings and ticket checkout
+
+### Railway environment
+
+Add `GOOGLE_PLACES_API_KEY` to the backend Railway service. Enable **Places API (New)** for the Google Cloud project associated with the key. Keep this key server-side; it is never required by the React frontend.
+
+> Eventbrite's former public event-search API is deprecated, so the application links users into current Eventbrite Chicago discovery rather than scraping or depending on the retired endpoint.
