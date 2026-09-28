@@ -11,6 +11,7 @@ import CatalogStatus from '../components/CatalogStatus';
 export default function ExplorePage() {
   const [params, setParams] = useSearchParams();
   const { items, loading } = useCatalog();
+  const [cafes, setCafes] = useState<Place[]>([]);
   const [places, setPlaces] = useState<Place[]>([]);
   const [placesLoading, setPlacesLoading] = useState(false);
   const [placesError, setPlacesError] = useState(false);
@@ -20,8 +21,14 @@ export default function ExplorePage() {
     const controller = new AbortController();
     setPlacesLoading(true);
     setPlacesError(false);
-    getLivePlaces(controller.signal, params.get('mood') || undefined, params.get('maxBudget') || undefined)
-      .then(setPlaces)
+    Promise.all([
+      getLivePlaces(controller.signal, params.get('mood') || undefined, params.get('maxBudget') || undefined, 'cafes'),
+      getLivePlaces(controller.signal, params.get('mood') || undefined, params.get('maxBudget') || undefined, 'places'),
+    ])
+      .then(([cafesResult, placesResult]) => {
+        setCafes(cafesResult);
+        setPlaces(placesResult);
+      })
       .catch((error) => {
         if (error?.name !== 'AbortError') setPlacesError(true);
       })
@@ -96,13 +103,20 @@ export default function ExplorePage() {
           <CatalogStatus />
 
           <div className="result-section-heading">
-            <div><p className="eyebrow">LIVE DISCOVERY</p><h2>Cafés & places for your mood</h2></div>
+            <div><p className="eyebrow">LIVE DISCOVERY</p><h2>Cafés for your mood</h2></div>
             {placesLoading && <span className="muted">Finding Chicago spots…</span>}
           </div>
           {placesError && <div className="notice">Live places are temporarily unavailable. Curated recommendations are still below.</div>}
-          {!placesLoading && !placesError && places.length === 0 && (
+          {!placesLoading && !placesError && cafes.length === 0 && places.length === 0 && (
             <div className="notice">Live place results are unavailable right now. Curated Chicago recommendations are still available below.</div>
           )}
+          <div className="experience-grid two-col live-grid">
+            {cafes.map((item) => <PlaceCard key={item.id} item={item} />)}
+          </div>
+
+          <div className="result-section-heading curated-heading">
+            <div><p className="eyebrow">PLACES TO EXPLORE</p><h2>Chicago spots for your mood</h2></div>
+          </div>
           <div className="experience-grid two-col live-grid">
             {places.map((item) => <PlaceCard key={item.id} item={item} />)}
           </div>
