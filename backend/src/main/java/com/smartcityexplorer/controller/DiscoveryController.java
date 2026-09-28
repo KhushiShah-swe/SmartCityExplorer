@@ -5,6 +5,7 @@ import com.smartcityexplorer.service.FoursquarePlacesService;
 import com.smartcityexplorer.service.OpenStreetMapService;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import java.util.List;
 import org.springframework.validation.annotation.Validated;
@@ -25,11 +26,12 @@ public class DiscoveryController {
     @GetMapping("/places")
     public List<PlaceResponse> places(
             @RequestParam(required = false) @Size(max = 60) String mood,
-            @RequestParam(required = false) @Min(0) @Max(3) Integer maxBudget) {
+            @RequestParam(required = false) @Min(0) @Max(3) Integer maxBudget,
+            @RequestParam(defaultValue = "places") @Pattern(regexp = "cafes|places") String kind) {
         try {
-            List<PlaceResponse> places = foursquare.discover(mood, maxBudget);
+            List<PlaceResponse> places = foursquare.discover(mood, maxBudget, kind);
             if (!places.isEmpty()) return places;
         } catch (RuntimeException ignored) { }
-        return osm.discover(mood, maxBudget);
+        return osm.discover(mood, maxBudget, kind);
     }
 }
