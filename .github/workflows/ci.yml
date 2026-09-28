@@ -38,6 +38,11 @@ jobs:
           java-version: '17'
           cache: maven
       - run: mvn --batch-mode --no-transfer-progress -f backend/pom.xml verify
+        env:
+          SPRING_DATASOURCE_URL: jdbc:h2:mem:smartcityexplorer;MODE=MySQL;DB_CLOSE_DELAY=-1
+          SPRING_DATASOURCE_USERNAME: sa
+          SPRING_DATASOURCE_PASSWORD: ""
+          SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.h2.Driver
       - uses: actions/upload-artifact@v4
         if: always()
         with:
