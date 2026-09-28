@@ -18,13 +18,13 @@ public class FoursquarePlacesService {
     @Value("${FOURSQUARE_API_KEY:}")
     private String apiKey;
 
-    public List<PlaceResponse> discover(String mood, Integer maxBudget) {
+    public List<PlaceResponse> discover(String mood, Integer maxBudget, String kind) {
         if (apiKey == null || apiKey.isBlank()) return List.of();
         String selectedMood = mood == null || mood.isBlank() ? "Explore Chicago" : mood;
         List<PlaceResponse> results = new ArrayList<>();
 
-        for (String query : queriesFor(selectedMood)) {
-            String uri = FSQ_URL + "?near=Chicago%2C%20IL&limit=10&query=" +
+        for (String query : queriesFor(selectedMood, kind)) {
+            String uri = FSQ_URL + "?near=Chicago%2C%20IL&limit=12&query=" +
                     URLEncoder.encode(query, StandardCharsets.UTF_8);
             JsonNode body = client.get().uri(uri)
                     .header("Authorization", "Bearer " + apiKey)
@@ -38,20 +38,31 @@ public class FoursquarePlacesService {
                         && results.stream().noneMatch(x -> x.id().equals(mapped.id()))) {
                     results.add(mapped);
                 }
-                if (results.size() >= 18) return results;
+                if (results.size() >= 12) return results;
             }
         }
         return results;
     }
 
-    private List<String> queriesFor(String mood) {
+    private List<String> queriesFor(String mood, String kind) {
+        boolean cafes = "cafes".equalsIgnoreCase(kind);
+        if (cafes) {
+            return switch (mood) {
+                case "Slow & Relaxed" -> List.of("cozy cafe", "tea room", "coffee shop");
+                case "Date Night" -> List.of("romantic cafe", "dessert cafe", "coffee shop");
+                case "Study & Work" -> List.of("quiet coffee shop", "study cafe", "coffee shop");
+                case "Group Activities" -> List.of("large cafe", "coffee shop", "brunch cafe");
+                case "Party & Nightlife" -> List.of("late night cafe", "dessert cafe", "coffee shop");
+                default -> List.of("best cafe", "coffee shop", "tea room");
+            };
+        }
         return switch (mood) {
-            case "Slow & Relaxed" -> List.of("cafe", "park", "garden");
-            case "Date Night" -> List.of("romantic restaurant", "cafe", "attraction");
-            case "Study & Work" -> List.of("coffee shop", "library", "cafe");
-            case "Group Activities" -> List.of("attraction", "arcade", "museum");
-            case "Party & Nightlife" -> List.of("nightlife", "music venue", "bar");
-            default -> List.of("cafe", "attraction", "museum");
+            case "Slow & Relaxed" -> List.of("park", "garden", "lakefront");
+            case "Date Night" -> List.of("rooftop restaurant", "theatre", "romantic attraction");
+            case "Study & Work" -> List.of("library", "bookstore", "coworking");
+            case "Group Activities" -> List.of("arcade", "museum", "bowling");
+            case "Party & Nightlife" -> List.of("music venue", "nightclub", "rooftop bar");
+            default -> List.of("museum", "attraction", "park");
         };
     }
 
@@ -65,11 +76,15 @@ public class FoursquarePlacesService {
                 ? text(p.path("categories").get(0), "name") : "Chicago Spot";
         int price = p.has("price") ? Math.max(0, Math.min(3, p.get("price").asInt() - 1)) : 1;
         Double rating = p.has("rating") ? p.get("rating").asDouble() : null;
+        Integer reviewCount = p.has("stats") && p.path("stats").has("total_ratings")
+                ? p.path("stats").path("total_ratings").asInt() : null;
+
         String encoded = URLEncoder.encode(name + (address == null ? ", Chicago IL" : ", " + address), StandardCharsets.UTF_8);
         String maps = "https://www.google.com/maps/search/?api=1&query=" + encoded;
         String directions = "https://www.google.com/maps/dir/?api=1&destination=" + encoded;
         String reviews = "https://www.google.com/maps/search/?api=1&query=" + encoded;
-        return new PlaceResponse(id, name, address, category, mood, price, rating, null,
+
+        return new PlaceResponse(id, name, address, category, mood, price, rating, reviewCount,
                 maps, directions, reviews, text(p, "website"), false);
     }
 
