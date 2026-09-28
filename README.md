@@ -112,16 +112,16 @@ Built by [Khushi Shah](https://github.com/KhushiShah-swe).
 
 ## Live Chicago discovery
 
-Smart City Explorer can enrich its curated catalog with live Chicago place data from Google Places API (New).
+Smart City Explorer enriches its curated catalog with live Chicago discovery without requiring Google Places billing.
 
-- Mood-aware café, attraction, park, nightlife, study and date-spot discovery
-- Google ratings and review counts
-- Direct Google Maps, directions and review links
-- Price-level filtering
-- Event discovery handoff to Eventbrite for current Chicago listings and ticket checkout
+- **Foursquare Places** is the optional rich-data provider for real venues, categories, price levels and ratings when available.
+- **OpenStreetMap / Nominatim** is the no-key fallback for Chicago place names, addresses and location discovery.
+- Google Maps is used only as an outbound link for map search and directions; no Google Places API key is required.
+- Event discovery hands off to Eventbrite for current Chicago listings and ticket checkout.
+- The bundled curated catalog remains available if an external service is unavailable.
 
-### Railway environment
+### Optional Railway environment
 
-Add `GOOGLE_PLACES_API_KEY` to the backend Railway service. Enable **Places API (New)** for the Google Cloud project associated with the key. Keep this key server-side; it is never required by the React frontend.
+For richer place metadata, add `FOURSQUARE_API_KEY` to the backend Railway service. The application still returns OpenStreetMap discovery results when this variable is absent.
 
-> Eventbrite's former public event-search API is deprecated, so the application links users into current Eventbrite Chicago discovery rather than scraping or depending on the retired endpoint.
+> Review text is not scraped or fabricated. When available, ratings come from the configured place provider; the Reviews action opens the corresponding map search so users can read current public reviews at the source.
