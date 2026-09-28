@@ -15,10 +15,13 @@ export async function getLivePlaces(
   signal: AbortSignal,
   mood?: string,
   maxBudget?: string,
+  kind: 'cafes' | 'places' = 'places',
 ): Promise<Place[]> {
   const params = new URLSearchParams();
   if (mood) params.set('mood', mood);
   if (maxBudget) params.set('maxBudget', maxBudget);
+  params.set('kind', kind);
+
   const response = await fetch(`${base}/discover/places?${params}`, { signal });
   if (!response.ok) throw new Error(`Places API returned ${response.status}`);
   const body: unknown = await response.json();
